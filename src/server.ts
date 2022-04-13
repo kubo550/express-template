@@ -1,5 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
+import helmet from "helmet";
+import cors from "cors";
 import morgan from "morgan";
 import path from "path";
 import type {Request, Response} from "express";
@@ -16,10 +18,14 @@ app.use(express.json());
 // HTTP request logger middleware for node.js
 app.use(morgan("dev"));
 
+// helmet helps you secure your Express apps by setting various HTTP headers.
+app.use(helmet());
+
+// CORS middleware to allow cross-origin requests and responses in Express apps.
+app.use(cors());
 
 //set static folder
 app.use(express.static(path.join(__dirname, "../public")));
-
 
 // health-check endpoint
 app.get("/health", (req: Request, res: Response) => {
